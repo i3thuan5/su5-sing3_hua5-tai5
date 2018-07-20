@@ -1,7 +1,6 @@
-from unittest.case import TestCase, skip
+from unittest.case import TestCase
 from unittest.mock import patch
 
-from sit.tsunpi import 準備語料
 from taihua import ik
 
 
