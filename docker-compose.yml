@@ -1,0 +1,15 @@
+version: '3.5'
+
+services:
+  gunicorn:
+    build: .
+    depends_on:
+      - huanik
+    expose:
+      - "80"
+    environment:
+      VIRTUAL_HOST: "xn--lhrz38b.xn--v0qr21b.xn--kpry57d"
+      VIRTUAL_PORT: 80
+  huanik:
+    image: hok
+    command: python3 manage.py 載入服務模型
