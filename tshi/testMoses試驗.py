@@ -49,7 +49,7 @@ class moses試驗(TestCase):
             拆文分析器.建立句物件('我愛豬仔。', 'gua2 ai3 ti1-a2.'),
             編碼器=無編碼器,
         )
-        self.assertEqual(語料['moses對應華語陣列'], [[0], [2], [3], [1] ])
+        self.assertEqual(語料['moses對應華語陣列'], [[0], [2], [3], [1]])
         self.assertEqual(語料['moses對應台語陣列'], [[0], [3], [1], [2]])
 
     def test_翻譯結果(self, xmlrpcMock):
