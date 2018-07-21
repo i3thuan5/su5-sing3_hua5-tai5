@@ -38,12 +38,18 @@ class moses試驗(TestCase):
         self.assertEqual(語料['moses對應台語陣列'], [[0], [1], [2], [3]])
 
     def test_有moses資料換位(self, xmlrpcMock):
+        self.moses_value['nbest'][0]['word-align'] = [
+            {'source-word': 0, 'target-word': 0},
+            {'source-word': 1, 'target-word': 2},
+            {'source-word': 2, 'target-word': 3},
+            {'source-word': 3, 'target-word': 1},
+        ]
         xmlrpcMock.return_value.translate.return_value = self.moses_value
         語料 = ik(
             拆文分析器.建立句物件('我愛豬仔。', 'gua2 ai3 ti1-a2.'),
             編碼器=無編碼器,
         )
-        self.assertEqual(語料['moses對應華語陣列'], [[0],  [2], [3], [1], ])
+        self.assertEqual(語料['moses對應華語陣列'], [[0], [2], [3], [1] ])
         self.assertEqual(語料['moses對應台語陣列'], [[0], [3], [1], [2]])
 
     def test_翻譯結果(self, xmlrpcMock):
@@ -52,7 +58,7 @@ class moses試驗(TestCase):
             拆文分析器.建立句物件('我愛豬仔。', 'gua2 ai3 ti1-a2.'),
             編碼器=無編碼器,
         )
-        self.assertEqual(語料['moses翻譯結果'], '我 愛 小豬')
+        self.assertEqual(語料['moses翻譯結果'], '我 喜-歡 小-豬 。')
 
     def test_無換位(self, xmlrpcMock):
         xmlrpcMock.return_value.translate.return_value = self.moses_value
@@ -63,6 +69,12 @@ class moses試驗(TestCase):
         self.assertFalse(語料['moses有換位無'])
 
     def test_有換位(self, xmlrpcMock):
+        self.moses_value['nbest'][0]['word-align'] = [
+            {'source-word': 0, 'target-word': 0},
+            {'source-word': 1, 'target-word': 2},
+            {'source-word': 2, 'target-word': 1},
+            {'source-word': 3, 'target-word': 3},
+        ]
         xmlrpcMock.return_value.translate.return_value = self.moses_value
         語料 = ik(
             拆文分析器.建立句物件('我愛豬仔。', 'gua2 ai3 ti1-a2.'),
