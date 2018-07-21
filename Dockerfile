@@ -5,4 +5,5 @@ WORKDIR /opt
 COPY . .
 RUN pip3 install -r requirements.txt
 
+EXPOSE 5000
 CMD gunicorn -w 2 -b 0.0.0.0:5000 --log-level debug hokbu:app
